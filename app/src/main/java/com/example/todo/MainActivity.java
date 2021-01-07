@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.commons.io.FileUtils;
@@ -33,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     RecyclerView rvItems;
     ItemsAdapter itemsAdapter;
+    TextView empty;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +47,15 @@ public class MainActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.addBtn);
         editText = findViewById(R.id.editItem);
         rvItems = findViewById(R.id.rvItems);
+        empty = findViewById(R.id.empty);
+
+        empty.setText("Welcome to Your Simple ToDo App!\nType in your ToDo below to get started.\n" +
+                "Once your ToDo has been added, tap once to edit it.\n" +
+                "Tap and hold to delete it.\n" +
+                "Have fun!");
 
         loadItems();
+
 
         ItemsAdapter.OnLongClickListener onLongClickListener = new ItemsAdapter.OnLongClickListener(){
             @Override
@@ -86,8 +98,18 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText("");
                 Toast.makeText(getApplicationContext(), "Item added muahaha!", Toast.LENGTH_SHORT).show();
                 saveItems();
+
+                //hide keyboard when add button is pressed
+                try{
+                    InputMethodManager inputMethod = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    inputMethod.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
+
+
     }
 
     //handle result of edit activity
@@ -120,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadItems(){
         try {
             items = new ArrayList<>(FileUtils.readLines(getDataFile(), Charset.defaultCharset()));
+
         } catch (IOException e) {
             Log.e("MainActivity", "Error reading items", e);
             items = new ArrayList<>();

@@ -12,7 +12,6 @@ import java.util.List;
 
 // Responsible for displaying data from the model into a row in the recycler view
 public class ItemsAdapter extends  RecyclerView.Adapter<ItemsAdapter.ViewHolder>{
-
     public interface OnClickListener{
         void onItemClicked(int position);
     }
