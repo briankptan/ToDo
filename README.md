@@ -19,8 +19,11 @@ The following **optional** features are implemented:
 * [x] User can **tap a todo item in the list and bring up an edit screen for the todo item** and then have any changes to the text reflected in the todo list
 
 The following **additional** features are implemented:
-
-* [ ] List anything else that you can get done to improve the app functionality!
+ - Added a welcome text with simple instructions.
+ - Auto-hide keyboard when Add Task button is pressed
+ 
+* [x] List anything else that you can get done to improve the app functionality!
+- Make the welcome text visible only when the list is empty. 
 
 ## Video Walkthrough
 
@@ -32,11 +35,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+I had a lot of fun building this app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2021] [Brian Tan]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
